@@ -1,0 +1,236 @@
+  [1m[35m (110.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "proyectos_test"[0m
+  [1m[35m (300.9ms)[0m  [1m[35mCREATE DATABASE "proyectos_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "admins" CASCADE[0m
+  [1m[35m (8.6ms)[0m  [1m[35mCREATE TABLE "admins" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_admins_on_email" ON "admins"  ("email")[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_admins_on_reset_password_token" ON "admins"  ("reset_password_token")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "projects" CASCADE[0m
+  [1m[35m (7.2ms)[0m  [1m[35mCREATE TABLE "projects" ("id" bigserial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "workers" CASCADE[0m
+  [1m[35m (7.9ms)[0m  [1m[35mCREATE TABLE "workers" ("id" bigserial primary key, "name" character varying, "phone" character varying, "address" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "workpros" CASCADE[0m
+  [1m[35m (5.9ms)[0m  [1m[35mCREATE TABLE "workpros" ("id" bigserial primary key, "status" boolean DEFAULT FALSE, "worker_id" bigint, "project_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE  INDEX  "index_workpros_on_project_id" ON "workpros"  ("project_id")[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE  INDEX  "index_workpros_on_worker_id" ON "workpros"  ("worker_id")[0m
+  [1m[35m (3.9ms)[0m  [1m[35mALTER TABLE "workpros" ADD CONSTRAINT "fk_rails_70c00d9296"
+FOREIGN KEY ("project_id")
+  REFERENCES "projects" ("id")
+[0m
+  [1m[35m (3.0ms)[0m  [1m[35mALTER TABLE "workpros" ADD CONSTRAINT "fk_rails_45836da758"
+FOREIGN KEY ("worker_id")
+  REFERENCES "workers" ("id")
+[0m
+  [1m[35m (9.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20180903091654)[0m
+  [1m[35m (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20180903071950),
+(20180903072603),
+(20180903072538);
+
+[0m
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2018-09-04 22:47:08.951575"], ["updated_at", "2018-09-04 22:47:08.951575"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.9ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.078554', '2018-09-04 22:47:09.078554'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.078554', '2018-09-04 22:47:09.078554');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.082563', '2018-09-04 22:47:09.082563'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.082563', '2018-09-04 22:47:09.082563');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.085537', '2018-09-04 22:47:09.085537'), (298486374, 'MyString', '2018-09-04 22:47:09.085537', '2018-09-04 22:47:09.085537');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.088342', '2018-09-04 22:47:09.088342'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.088342', '2018-09-04 22:47:09.088342')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.167292', '2018-09-04 22:47:09.167292'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.167292', '2018-09-04 22:47:09.167292');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.168434', '2018-09-04 22:47:09.168434'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.168434', '2018-09-04 22:47:09.168434');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.169360', '2018-09-04 22:47:09.169360'), (298486374, 'MyString', '2018-09-04 22:47:09.169360', '2018-09-04 22:47:09.169360');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.170260', '2018-09-04 22:47:09.170260'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.170260', '2018-09-04 22:47:09.170260')[0m
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.175842', '2018-09-04 22:47:09.175842'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.175842', '2018-09-04 22:47:09.175842');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.176885', '2018-09-04 22:47:09.176885'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.176885', '2018-09-04 22:47:09.176885');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.178101', '2018-09-04 22:47:09.178101'), (298486374, 'MyString', '2018-09-04 22:47:09.178101', '2018-09-04 22:47:09.178101');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.179251', '2018-09-04 22:47:09.179251'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.179251', '2018-09-04 22:47:09.179251')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.185068', '2018-09-04 22:47:09.185068'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.185068', '2018-09-04 22:47:09.185068');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.186141', '2018-09-04 22:47:09.186141'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.186141', '2018-09-04 22:47:09.186141');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.187164', '2018-09-04 22:47:09.187164'), (298486374, 'MyString', '2018-09-04 22:47:09.187164', '2018-09-04 22:47:09.187164');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.188045', '2018-09-04 22:47:09.188045'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.188045', '2018-09-04 22:47:09.188045')[0m
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.193357', '2018-09-04 22:47:09.193357'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.193357', '2018-09-04 22:47:09.193357');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.194443', '2018-09-04 22:47:09.194443'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.194443', '2018-09-04 22:47:09.194443');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.195413', '2018-09-04 22:47:09.195413'), (298486374, 'MyString', '2018-09-04 22:47:09.195413', '2018-09-04 22:47:09.195413');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.196285', '2018-09-04 22:47:09.196285'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.196285', '2018-09-04 22:47:09.196285')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.201526', '2018-09-04 22:47:09.201526'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.201526', '2018-09-04 22:47:09.201526');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.202545', '2018-09-04 22:47:09.202545'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.202545', '2018-09-04 22:47:09.202545');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.203537', '2018-09-04 22:47:09.203537'), (298486374, 'MyString', '2018-09-04 22:47:09.203537', '2018-09-04 22:47:09.203537');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.204411', '2018-09-04 22:47:09.204411'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.204411', '2018-09-04 22:47:09.204411')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.209523', '2018-09-04 22:47:09.209523'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.209523', '2018-09-04 22:47:09.209523');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.210486', '2018-09-04 22:47:09.210486'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.210486', '2018-09-04 22:47:09.210486');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.211463', '2018-09-04 22:47:09.211463'), (298486374, 'MyString', '2018-09-04 22:47:09.211463', '2018-09-04 22:47:09.211463');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.212304', '2018-09-04 22:47:09.212304'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.212304', '2018-09-04 22:47:09.212304')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.6ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.217584', '2018-09-04 22:47:09.217584'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.217584', '2018-09-04 22:47:09.217584');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.218613', '2018-09-04 22:47:09.218613'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.218613', '2018-09-04 22:47:09.218613');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.219663', '2018-09-04 22:47:09.219663'), (298486374, 'MyString', '2018-09-04 22:47:09.219663', '2018-09-04 22:47:09.219663');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.220589', '2018-09-04 22:47:09.220589'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.220589', '2018-09-04 22:47:09.220589')[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.228415', '2018-09-04 22:47:09.228415'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.228415', '2018-09-04 22:47:09.228415');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.229527', '2018-09-04 22:47:09.229527'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.229527', '2018-09-04 22:47:09.229527');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.230512', '2018-09-04 22:47:09.230512'), (298486374, 'MyString', '2018-09-04 22:47:09.230512', '2018-09-04 22:47:09.230512');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.231453', '2018-09-04 22:47:09.231453'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.231453', '2018-09-04 22:47:09.231453')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.236781', '2018-09-04 22:47:09.236781'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.236781', '2018-09-04 22:47:09.236781');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.237794', '2018-09-04 22:47:09.237794'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.237794', '2018-09-04 22:47:09.237794');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.238832', '2018-09-04 22:47:09.238832'), (298486374, 'MyString', '2018-09-04 22:47:09.238832', '2018-09-04 22:47:09.238832');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.239761', '2018-09-04 22:47:09.239761'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.239761', '2018-09-04 22:47:09.239761')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.244992', '2018-09-04 22:47:09.244992'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.244992', '2018-09-04 22:47:09.244992');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.245981', '2018-09-04 22:47:09.245981'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.245981', '2018-09-04 22:47:09.245981');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.247023', '2018-09-04 22:47:09.247023'), (298486374, 'MyString', '2018-09-04 22:47:09.247023', '2018-09-04 22:47:09.247023');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.247952', '2018-09-04 22:47:09.247952'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.247952', '2018-09-04 22:47:09.247952')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.253127', '2018-09-04 22:47:09.253127'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.253127', '2018-09-04 22:47:09.253127');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.254141', '2018-09-04 22:47:09.254141'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.254141', '2018-09-04 22:47:09.254141');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.255064', '2018-09-04 22:47:09.255064'), (298486374, 'MyString', '2018-09-04 22:47:09.255064', '2018-09-04 22:47:09.255064');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.255947', '2018-09-04 22:47:09.255947'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.255947', '2018-09-04 22:47:09.255947')[0m
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.261227', '2018-09-04 22:47:09.261227'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.261227', '2018-09-04 22:47:09.261227');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.262287', '2018-09-04 22:47:09.262287'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.262287', '2018-09-04 22:47:09.262287');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.263192', '2018-09-04 22:47:09.263192'), (298486374, 'MyString', '2018-09-04 22:47:09.263192', '2018-09-04 22:47:09.263192');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.264036', '2018-09-04 22:47:09.264036'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.264036', '2018-09-04 22:47:09.264036')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.269315', '2018-09-04 22:47:09.269315'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.269315', '2018-09-04 22:47:09.269315');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.270313', '2018-09-04 22:47:09.270313'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.270313', '2018-09-04 22:47:09.270313');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.271291', '2018-09-04 22:47:09.271291'), (298486374, 'MyString', '2018-09-04 22:47:09.271291', '2018-09-04 22:47:09.271291');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.272168', '2018-09-04 22:47:09.272168'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.272168', '2018-09-04 22:47:09.272168')[0m
+  [1m[35m (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "admins" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL;ALTER TABLE "projects" DISABLE TRIGGER ALL;ALTER TABLE "workers" DISABLE TRIGGER ALL;ALTER TABLE "workpros" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.5ms)[0m  [1m[31mDELETE FROM "workers";
+DELETE FROM "admins";
+DELETE FROM "projects";
+DELETE FROM "workpros";
+INSERT INTO "workers" ("id", "name", "phone", "address", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.277296', '2018-09-04 22:47:09.277296'), (298486374, 'MyString', 'MyString', 'MyString', '2018-09-04 22:47:09.277296', '2018-09-04 22:47:09.277296');
+INSERT INTO "admins" ("id", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (980190962, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.278313', '2018-09-04 22:47:09.278313'), (298486374, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, '2018-09-04 22:47:09.278313', '2018-09-04 22:47:09.278313');
+INSERT INTO "projects" ("id", "name", "created_at", "updated_at") VALUES (980190962, 'MyString', '2018-09-04 22:47:09.279239', '2018-09-04 22:47:09.279239'), (298486374, 'MyString', '2018-09-04 22:47:09.279239', '2018-09-04 22:47:09.279239');
+INSERT INTO "workpros" ("id", "status", "worker_id", "project_id", "created_at", "updated_at") VALUES (980190962, FALSE, 980190962, 980190962, '2018-09-04 22:47:09.280118', '2018-09-04 22:47:09.280118'), (298486374, FALSE, 298486374, 298486374, '2018-09-04 22:47:09.280118', '2018-09-04 22:47:09.280118')[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m

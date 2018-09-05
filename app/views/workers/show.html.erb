@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 mx-auto">
+      <p>
+        <strong>Name:</strong>
+        <%= @worker.name %>
+      </p>
+      <p>
+        <strong>Phone:</strong>
+        <%= @worker.phone %>
+      </p>
+      <p>
+        <strong>Address:</strong>
+        <%= @worker.address %>
+      </p>
+      <h1 class="text-center mb-5">Proyectos</h1>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th colspan="4">Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @projects.each do |project| %>
+            <tr>
+              <td><%= project.name %></td>
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+
+      <%= link_to 'Edit', edit_worker_path(@worker) %> |
+      <%= link_to 'Back', workers_path %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="container"> 
+	<div class="row">
+		<div class="col-6 mx-auto">
+			<p>
+				<strong>Name:</strong>
+				<%= @project.name %>
+			</p>
+			<h1 class="text-center mb-5">Personas</h1>    
+			<table class="table table-bordered">
+			<thead>
+			<tr>
+				<th>Name</th>
+				<th>Phone</th>
+				<th colspan="2">Address</th>
+			</tr>
+			</thead>
+			<tbody>
+			<% @workers.each do |worker| %>
+				<tr>
+					<td><%= worker.name %></td>
+					<td><%= worker.phone %></td>
+					<td><%= worker.address %></td>
+					<td><%= link_to 'Eliminar', project_workpro_path(@project, worker), method: :delete, class: 'btn btn-danger btn-block' %></td>
+				</tr>
+			<% end %>
+			</tbody>
+			</table>
+			<div class="row">
+				<div class="col-6">
+					<%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-primary btn-block' %>
+				</div>
+				<div class="col-6">
+					<%= link_to 'Back', projects_path, class: 'btn btn-primary btn-block' %>
+				</div>
+			</div>
+				<%= form_for @workpro, url: project_workpros_path(@project) do |form| %>
+					<div class="form-row align-items-center mt-4">
+						<div class="col-8">
+							<%= form.select :worker_id, Worker.where.not("id in (?)", @workers.pluck(:id)).pluck(:name, :id), {}, class: 'form-control' %>
+						</div>
+						<div class="col-4">
+							<%= form.submit "Agregar persona", class: 'btn btn-primary btn-block' %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
